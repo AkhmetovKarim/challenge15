@@ -40,14 +40,18 @@ function addRiskItem(riskName, riskLevel, department) {
         riskDashboard.removeChild(riskCard);
     });
 
+    riskCard.addEventListener("click", function (event) {
+        event.stopPropagation();
+        console.log(`Clicked on risk: ${riskName}`);
+    });
+
     riskCard.appendChild(nameElement);//append elements to riskCrad
     riskCard.appendChild(levelElement);
     riskCard.appendChild(departmentElement);
+    riskCard.appendChild(resolveButton);
 
     riskDashboard.appendChild(riskCard);//append riskCrard to riskDashboard
 }
-addRiskItem("Data Breach", "High", "IT");
-addRiskItem("Supply Chain Disruption", "Medium", "Operations");
 
 //Task 5 - Bulk Update Risk Levels
 
@@ -73,6 +77,19 @@ function increaseRiskLevels() {
 const increaseRiskButton = document.createElement("button");
 increaseRiskButton.textContent = "Increase Risk Levels";
 increaseRiskButton.addEventListener("click", increaseRiskLevels);
-document.body.insertBefore(increaseRiskButton, riskDashboard);
+riskDashboard.parentElement.appendChild(increaseRiskButton);
 
-addRiskItem("Employee Retention", "Low", "HR");
+
+//Task 6 - Prevent Unintended Clicks on Dashboard
+
+riskDashboard.addEventListener("click", function () {
+    console.log("Dashboard Clicked");
+});
+
+//Test cases
+addRiskItem("Data Breach", "High", "IT");
+addRiskItem("Supply Chain Disruption", "Medium", "Operations");
+addRiskItem("Market Fluctuations", "High", "Finance");
+addRiskItem("Cybersecurity Threat", "High", "IT");
+addRiskItem("HR Compliance Issue", "Low", "Human Resources");
+addRiskItem("Employee Retention", "Low", "Human Resources");
