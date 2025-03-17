@@ -48,3 +48,31 @@ function addRiskItem(riskName, riskLevel, department) {
 }
 addRiskItem("Data Breach", "High", "IT");
 addRiskItem("Supply Chain Disruption", "Medium", "Operations");
+
+//Task 5 - Bulk Update Risk Levels
+
+function increaseRiskLevels() {
+    const riskCards = document.querySelectorAll(".riskCard");
+
+    riskCards.forEach(card => {
+        const levelElement = card.querySelector(".riskLevel");
+        let currentLevel = levelElement.textContent.replace("Level: ", "").trim();
+
+        if (currentLevel === "Low") {
+            currentLevel = "Medium";
+        } else if (currentLevel === "Medium") {
+            currentLevel = "High";
+        }
+        levelElement.textContent = `Level: ${currentLevel}`;
+        card.style.backgroundColor = (currentLevel === "High") ? "red" :
+                                    (currentLevel === "Medium") ? "yellow" :
+                                    "green";
+        card.style.color = (currentLevel === "High" || currentLevel === "Low") ? "white" : "black";
+    });
+}
+const increaseRiskButton = document.createElement("button");
+increaseRiskButton.textContent = "Increase Risk Levels";
+increaseRiskButton.addEventListener("click", increaseRiskLevels);
+document.body.insertBefore(increaseRiskButton, riskDashboard);
+
+addRiskItem("Employee Retention", "Low", "HR");
